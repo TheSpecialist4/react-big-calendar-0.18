@@ -21,7 +21,6 @@ class Toolbar extends React.Component {
   }
 
   componentDidMount() {
-    console.log('hello from local')
     window.addEventListener('resize', () => {
       this.setState({
         windowWidth: window.innerWidth,
