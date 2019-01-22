@@ -170,7 +170,7 @@ describe('segStyle', () => {
     const slots = 7
     const result = segStyle(span, slots)
 
-    const expectedPercentage = span / slots * 100
+    const expectedPercentage = (span / slots) * 100
     const expectedResult = {
       WebkitFlexBasis: `${expectedPercentage}%`,
       flexBasis: `${expectedPercentage}%`,

@@ -13,35 +13,66 @@ class Toolbar extends React.Component {
     onViewChange: PropTypes.func.isRequired,
   }
 
+  constructor(props) {
+    super(props)
+    this.state = {
+      windowWidth: window.innerWidth,
+    }
+  }
+
+  componentDidMount() {
+    console.log('hello from local')
+    window.addEventListener('resize', () => {
+      this.setState({
+        windowWidth: window.innerWidth,
+      })
+    })
+  }
+
   render() {
     let { messages, label } = this.props
+    const { windowWidth } = this.state
 
+    const weekButtons = (
+      <span className="rbc-btn-group">
+        <button
+          type="button"
+          onClick={this.navigate.bind(null, navigate.TODAY)}
+        >
+          {messages.today}
+        </button>
+        <button
+          type="button"
+          onClick={this.navigate.bind(null, navigate.PREVIOUS)}
+        >
+          {messages.previous}
+        </button>
+        <button type="button" onClick={this.navigate.bind(null, navigate.NEXT)}>
+          {messages.next}
+        </button>
+      </span>
+    )
+
+    const monthLabel = <span className="rbc-toolbar-label">{label}</span>
+
+    const calenderViewButtons = (
+      <span className="rbc-btn-group">{this.viewNamesGroup(messages)}</span>
+    )
+
+    if (windowWidth < 500) {
+      return (
+        <div className="rbc-toolbar">
+          {monthLabel}
+          {calenderViewButtons}
+          {weekButtons}
+        </div>
+      )
+    }
     return (
       <div className="rbc-toolbar">
-        <span className="rbc-btn-group">
-          <button
-            type="button"
-            onClick={this.navigate.bind(null, navigate.TODAY)}
-          >
-            {messages.today}
-          </button>
-          <button
-            type="button"
-            onClick={this.navigate.bind(null, navigate.PREVIOUS)}
-          >
-            {messages.previous}
-          </button>
-          <button
-            type="button"
-            onClick={this.navigate.bind(null, navigate.NEXT)}
-          >
-            {messages.next}
-          </button>
-        </span>
-
-        <span className="rbc-toolbar-label">{label}</span>
-
-        <span className="rbc-btn-group">{this.viewNamesGroup(messages)}</span>
+        {weekButtons}
+        {monthLabel}
+        {calenderViewButtons}
       </div>
     )
   }

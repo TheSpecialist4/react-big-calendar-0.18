@@ -264,8 +264,8 @@ class DayColumn extends React.Component {
   }
 
   _slotStyle = (startSlot, endSlot) => {
-    let top = startSlot / this._totalMin * 100
-    let bottom = endSlot / this._totalMin * 100
+    let top = (startSlot / this._totalMin) * 100
+    let bottom = (endSlot / this._totalMin) * 100
 
     return {
       top: top + '%',
